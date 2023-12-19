@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/19 14:41:05 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/19 14:43:00 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 char	*get_next_line(int fd)
 {
-	static t_strings *stash;
+	static t_strings	*stash;
 }
