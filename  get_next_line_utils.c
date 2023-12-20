@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:45:35 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/19 16:43:20 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:41:21 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,13 @@ t_strings	*ft_new_node(char *text)
 	{
 		return (NULL);
 	}
-	new_node->text = text;
+	new_node->text = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (new_node->text == NULL)
+	{
+		free(new_node);
+		return (NULL);
+	}
+	ft_strlcat(new_node->text, text, BUFFER_SIZE + 1);
 	new_node->next = NULL;
 	return (new_node);
 }
@@ -57,6 +63,7 @@ void	ft_lstadd_back_list(t_strings **lst, t_strings *new)
 {
 	t_strings	*temp;
 
+	temp = *lst;
 	if (*lst == NULL)
 	{
 		*lst = new;
