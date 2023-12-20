@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:45:35 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 16:16:53 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:21:17 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ long	ft_strchr_line(const char *s, int c)
 	long	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (i < BUFFER_SIZE)
 	{
 		if (s[i] == (char)c)
 		{
@@ -79,7 +79,7 @@ void	ft_strlcat(char *dst, const char *src, long special_char_index)
 	{
 		dest_length++;
 	}
-	while (src[i] != '\0')
+	while (i < BUFFER_SIZE)
 	{
 		dst[dest_length] = src[i];
 		if (special_char_index != -1 && (long)i == special_char_index)

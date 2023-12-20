@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 18:05:21 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:43:02 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*find_next_line(t_strings **stash, int fd, char *buffer);
 char	*get_next_line(int fd)
 {
 	t_strings	*stash;
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffer[BUFFER_SIZE];
 	char		*line;
 	long		special_char_index;
 	long		i;
@@ -41,11 +41,17 @@ char	*get_next_line(int fd)
 	if (special_char_index != -1)
 	{
 		i = 0;
-		while (special_char_index < BUFFER_SIZE + 1)
+		while (special_char_index < BUFFER_SIZE - 1)
 		{
 			buffer[i] = buffer[special_char_index];
 			i++;
 			special_char_index++;
+		}
+		i++;
+		while (i < BUFFER_SIZE)
+		{
+			buffer[i] = '\0';
+			i++;
 		}
 	}
 	return (line);
@@ -61,9 +67,7 @@ static char	*find_next_line(t_strings **stash, int fd, char *buffer)
 	while (found_char == false)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == BUFFER_SIZE)
-			buffer[BUFFER_SIZE] = '\0';
-		else if (bytes_read != BUFFER_SIZE)
+		if (bytes_read != BUFFER_SIZE)
 		{
 			buffer[bytes_read] = '\0';
 			ft_lstadd_back_list(stash, buffer, special_char_index);
