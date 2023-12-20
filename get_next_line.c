@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 16:22:52 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:30:53 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,38 @@
 
 static char	*ft_parse_stash(t_strings **stash);
 static void	clean_list(t_strings *stash);
+static char	*find_next_line(t_strings **stash, int fd, char *buffer);
 
 char	*get_next_line(int fd)
 {
 	t_strings	*stash;
 	static char	buffer[BUFFER_SIZE + 1];
-	bool		found_char;
-	int			bytes_read;
+	char		*line;
 	long		special_char_index;
+	long		i;
 
-	stash = NULL;
+	line = find_next_line(&stash, fd, buffer);
+	special_char_index = ft_strchr_line(buffer, '\n') + 1;
+	if (special_char_index != -1)
+	{
+		i = 0;
+		while (special_char_index < BUFFER_SIZE + 1)
+		{
+			buffer[i] = buffer[special_char_index];
+			i++;
+			special_char_index++;
+		}
+	}
+	return (line);
+}
+
+static char	*find_next_line(t_strings **stash, int fd, char *buffer)
+{
+	bool	found_char;
+	int		bytes_read;
+	long	special_char_index;
+
+	*stash = NULL;
 	found_char = false;
 	while (found_char == false)
 	{
@@ -33,15 +55,15 @@ char	*get_next_line(int fd)
 		else if (bytes_read != BUFFER_SIZE)
 		{
 			buffer[bytes_read] = '\0';
-			ft_lstadd_back_list(&stash, buffer, special_char_index);
+			ft_lstadd_back_list(stash, buffer, special_char_index);
 			break ;
 		}
 		special_char_index = ft_strchr_line(buffer, '\n');
 		if (special_char_index != -1)
 			found_char = true;
-		ft_lstadd_back_list(&stash, buffer, special_char_index);
+		ft_lstadd_back_list(stash, buffer, special_char_index);
 	}
-	return (ft_parse_stash(&stash));
+	return (ft_parse_stash(stash));
 }
 
 static char	*ft_parse_stash(t_strings **stash)
