@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:45:22 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 13:51:32 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:10:57 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ typedef struct s_list_line
 	struct s_list_line	*next;
 }						t_strings;
 char					*get_next_line(int fd);
-t_strings				*ft_new_node(char *text);
-void					ft_lstadd_back_list(t_strings **lst, t_strings *new);
+void					ft_lstadd_back_list(t_strings **lst, char *text);
 char					*ft_strchr_line(const char *s, int c);
 size_t					ft_strlcat(char *dst, const char *src);
 #endif

@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 15:05:52 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:31:21 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,11 @@ static void	clean_list(t_strings *stash);
 char	*get_next_line(int fd)
 {
 	t_strings	*stash;
-	t_strings	*node;
 	static char	buffer[BUFFER_SIZE + 1];
 	bool		found_char;
 	int			bytes_read;
-	char		*last_string;
 
 	stash = NULL;
-	last_string = NULL;
 	found_char = false;
 	while (found_char == false)
 	{
@@ -36,20 +33,16 @@ char	*get_next_line(int fd)
 		else if (bytes_read != BUFFER_SIZE)
 		{
 			buffer[bytes_read] = '\0';
-			node = ft_new_node(buffer);
-			ft_lstadd_back_list(&stash, node);
+			ft_lstadd_back_list(&stash, buffer);
 			break ;
 		}
 		if (ft_strchr_line(buffer, '\n') != NULL)
 			found_char = true;
-		node = ft_new_node(buffer);
-		ft_lstadd_back_list(&stash, node);
+		ft_lstadd_back_list(&stash, buffer);
 	}
-	last_string = ft_parse_stash(&stash);
-	return (last_string);
+	return (ft_parse_stash(&stash));
 }
 
-// New function to parse the strings stored
 static char	*ft_parse_stash(t_strings **stash)
 {
 	t_strings		*temp;
@@ -88,10 +81,10 @@ static void	clean_list(t_strings *stash)
 	}
 }
 
-// In case that I also have to use malloc on the texts of the linked lists,
-//	create the free functions. Test later.
-
 // TO DO : If we detect a wanted char, we need to copy on the next node
 // only up to the first wanted char, the rest stays in the buffer.
 
-//TO DO: DO SOME CLEANUP TO HANDLE THE NORM. START WITH THE NODES.
+// TO DO: DO SOME CLEANUP TO HANDLE THE NORM. START WITH THE NODES.
+
+// If I need more functions in utils,
+//	try to eliminate the need of the static strlen function.

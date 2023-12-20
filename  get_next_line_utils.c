@@ -6,13 +6,13 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:45:35 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 14:39:42 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:21:23 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static size_t	ft_strlen_line(const char *s);
+static size_t		ft_strlen_line(const char *s);
 
 char	*ft_strchr_line(const char *s, int c)
 {
@@ -33,7 +33,7 @@ char	*ft_strchr_line(const char *s, int c)
 	return (ptr_c);
 }
 
-t_strings	*ft_new_node(char *text)
+static t_strings	*ft_new_node(char *text)
 {
 	t_strings	*new_node;
 
@@ -53,22 +53,21 @@ t_strings	*ft_new_node(char *text)
 	return (new_node);
 }
 
-void	ft_lstadd_back_list(t_strings **lst, t_strings *new)
+void	ft_lstadd_back_list(t_strings **lst, char *text)
 {
 	t_strings	*temp;
 
 	temp = *lst;
 	if (*lst == NULL)
 	{
-		*lst = new;
-		new->next = NULL;
+		*lst = ft_new_node(text);
 		return ;
 	}
 	while (temp->next != NULL)
 	{
 		temp = temp->next;
 	}
-	temp->next = new;
+	temp->next = ft_new_node(text);
 }
 
 size_t	ft_strlcat(char *dst, const char *src)
