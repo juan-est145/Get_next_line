@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:45:35 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 13:52:01 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 14:39:42 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,10 @@ char	*ft_strchr_line(const char *s, int c)
 {
 	size_t	i;
 	char	*ptr_c;
-	size_t	length;
 
 	i = 0;
-	length = 0;
 	ptr_c = NULL;
-	while (s[length] != '\0')
-	{
-		length++;
-	}
-	while (i <= length)
+	while (s[i] != '\0')
 	{
 		if (s[i] == (char)c)
 		{
