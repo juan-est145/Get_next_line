@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 16:17:53 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:22:52 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,5 @@ static void	clean_list(t_strings *stash)
 	}
 }
 
-// TO DO : If we detect a wanted char, we need to copy on the next node
-// only up to the first wanted char, the rest stays in the buffer.
-
-// TO DO: DO SOME CLEANUP TO HANDLE THE NORM. START WITH THE NODES.
-
-// If I need more functions in utils,
-//	try to eliminate the need of the static strlen function.
-
-//Change stchr_line so that it returns the position of the first \n.
+// TO DO: Clean up the buffer of all previously written values before the
+// special character.
