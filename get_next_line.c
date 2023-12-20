@@ -6,14 +6,13 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 15:31:21 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:17:53 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 static char	*ft_parse_stash(t_strings **stash);
-
 static void	clean_list(t_strings *stash);
 
 char	*get_next_line(int fd)
@@ -22,6 +21,7 @@ char	*get_next_line(int fd)
 	static char	buffer[BUFFER_SIZE + 1];
 	bool		found_char;
 	int			bytes_read;
+	long		special_char_index;
 
 	stash = NULL;
 	found_char = false;
@@ -33,12 +33,13 @@ char	*get_next_line(int fd)
 		else if (bytes_read != BUFFER_SIZE)
 		{
 			buffer[bytes_read] = '\0';
-			ft_lstadd_back_list(&stash, buffer);
+			ft_lstadd_back_list(&stash, buffer, special_char_index);
 			break ;
 		}
-		if (ft_strchr_line(buffer, '\n') != NULL)
+		special_char_index = ft_strchr_line(buffer, '\n');
+		if (special_char_index != -1)
 			found_char = true;
-		ft_lstadd_back_list(&stash, buffer);
+		ft_lstadd_back_list(&stash, buffer, special_char_index);
 	}
 	return (ft_parse_stash(&stash));
 }
@@ -61,7 +62,7 @@ static char	*ft_parse_stash(t_strings **stash)
 	full_line = (char *)malloc((sizeof(char) * (BUFFER_SIZE * counter)) + 1);
 	while (temp != NULL)
 	{
-		ft_strlcat(full_line, temp->text);
+		ft_strlcat(full_line, temp->text, -1);
 		temp = temp->next;
 	}
 	clean_list(*stash);
@@ -88,3 +89,5 @@ static void	clean_list(t_strings *stash)
 
 // If I need more functions in utils,
 //	try to eliminate the need of the static strlen function.
+
+//Change stchr_line so that it returns the position of the first \n.
