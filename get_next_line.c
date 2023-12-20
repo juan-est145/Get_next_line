@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 17:59:59 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:05:21 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ char	*get_next_line(int fd)
 
 	i = 0;
 	stash = NULL;
-	/*while (i <= BUFFER_SIZE)
+	while (i <= BUFFER_SIZE)
 	{
 		if (buffer[i] != '\0')
 		{
 			special_char_index = ft_strchr_line(buffer, '\n');
 			ft_lstadd_back_list(&stash, &buffer[i], special_char_index);
+			break ;
 		}
-	}*/
+		i++;
+	}
 	line = find_next_line(&stash, fd, buffer);
 	special_char_index = ft_strchr_line(buffer, '\n') + 1;
 	if (special_char_index != -1)
