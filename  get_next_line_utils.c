@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:45:35 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 13:41:21 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:52:01 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_strings	*ft_new_node(char *text)
 		free(new_node);
 		return (NULL);
 	}
-	ft_strlcat(new_node->text, text, BUFFER_SIZE + 1);
+	ft_strlcat(new_node->text, text);
 	new_node->next = NULL;
 	return (new_node);
 }
@@ -77,7 +77,7 @@ void	ft_lstadd_back_list(t_strings **lst, t_strings *new)
 	temp->next = new;
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcat(char *dst, const char *src)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -88,11 +88,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	dest_length = ft_strlen_line(dst);
 	i = 0;
 	j = dest_length;
-	if (dstsize == 0 || dstsize <= dest_length)
-	{
-		return (dstsize + src_length);
-	}
-	while (src[i] != '\0' && i < dstsize - dest_length - 1)
+	while (src[i] != '\0')
 	{
 		dst[j] = src[i];
 		i++;

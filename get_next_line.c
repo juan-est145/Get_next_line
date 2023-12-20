@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 13:20:16 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:56:14 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	*get_next_line(int fd)
 
 	stash = NULL;
 	last_string = NULL;
-	// First draft to a system to create our stash of all strings read.
 	found_char = false;
 	while (found_char == false)
 	{
@@ -44,7 +43,7 @@ char	*get_next_line(int fd)
 		node = ft_new_node(buffer);
 		ft_lstadd_back_list(&stash, node);
 	}
-	ft_parse_stash(&stash);
+	last_string = ft_parse_stash(&stash);
 	return (last_string);
 }
 
@@ -53,11 +52,9 @@ static char	*ft_parse_stash(t_strings **stash)
 {
 	t_strings		*temp;
 	char			*full_line;
-	unsigned int	words_written;
 	unsigned int	counter;
 
 	full_line = NULL;
-	words_written = BUFFER_SIZE;
 	temp = *stash;
 	counter = 0;
 	while (temp != NULL)
@@ -66,11 +63,11 @@ static char	*ft_parse_stash(t_strings **stash)
 		counter++;
 	}
 	temp = *stash;
-	full_line = (char *)malloc(sizeof(char) * (BUFFER_SIZE * counter));
+	full_line = (char *)malloc((sizeof(char) * (BUFFER_SIZE * counter)) + 1);
 	while (temp != NULL)
 	{
-		ft_strlcat(full_line, temp->text, BUFFER_SIZE);
-		words_written += BUFFER_SIZE;
+		ft_strlcat(full_line, temp->text);
+		temp = temp->next;
 	}
 	return (full_line);
 }
