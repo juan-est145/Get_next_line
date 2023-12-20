@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:45:22 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 16:17:32 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:43:52 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-# define BUFFER_SIZE 10
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 typedef struct s_list_line
 {
