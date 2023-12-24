@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*    get_next_line_utils.c                             :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:45:35 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 18:21:17 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/24 11:50:13 by juan_est145      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ long	ft_strchr_line(const char *s, int c)
 
 static t_strings	*ft_new_node(char *text, long special_char_index)
 {
-	t_strings	*new_node;
+	t_strings		*new_node;
+	unsigned int	i;
 
+	new_node = NULL;
+	i = 0;
 	new_node = (t_strings *)malloc(sizeof(t_strings));
 	if (new_node == NULL)
 	{
@@ -44,6 +47,11 @@ static t_strings	*ft_new_node(char *text, long special_char_index)
 	{
 		free(new_node);
 		return (NULL);
+	}
+	while (i < BUFFER_SIZE)
+	{
+		new_node->text[i] = '\0';
+		i++;
 	}
 	ft_strlcat(new_node->text, text, special_char_index);
 	new_node->next = NULL;

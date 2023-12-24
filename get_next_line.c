@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 18:43:02 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/24 12:04:35 by juan_est145      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static char	*find_next_line(t_strings **stash, int fd, char *buffer);
 char	*get_next_line(int fd)
 {
 	t_strings	*stash;
-	static char	buffer[BUFFER_SIZE];
+	static char	buffer[BUFFER_SIZE + 1];
 	char		*line;
 	long		special_char_index;
 	long		i;
 
 	i = 0;
 	stash = NULL;
-	while (i <= BUFFER_SIZE)
+	while (i < BUFFER_SIZE)
 	{
 		if (buffer[i] != '\0')
 		{
@@ -37,17 +37,17 @@ char	*get_next_line(int fd)
 		i++;
 	}
 	line = find_next_line(&stash, fd, buffer);
-	special_char_index = ft_strchr_line(buffer, '\n') + 1;
+	special_char_index = ft_strchr_line(buffer, '\n');
 	if (special_char_index != -1)
 	{
 		i = 0;
-		while (special_char_index < BUFFER_SIZE - 1)
+		special_char_index++;
+		while (special_char_index < BUFFER_SIZE)
 		{
 			buffer[i] = buffer[special_char_index];
 			i++;
 			special_char_index++;
 		}
-		i++;
 		while (i < BUFFER_SIZE)
 		{
 			buffer[i] = '\0';
@@ -97,6 +97,7 @@ static char	*ft_parse_stash(t_strings **stash)
 	}
 	temp = *stash;
 	full_line = (char *)malloc((sizeof(char) * (BUFFER_SIZE * counter)) + 1);
+	full_line[0] = '\0';
 	while (temp != NULL)
 	{
 		ft_strlcat(full_line, temp->text, -1);

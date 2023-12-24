@@ -20,4 +20,10 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
+debug:
+	clang -Wall -Wextra -Werror -g *.c
+
+valgrind:
+	valgrind --leak-check=full -s --track-origins=yes ./a.out
+
 .Phony: all clean fclean re bonus
