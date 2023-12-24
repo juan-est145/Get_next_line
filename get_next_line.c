@@ -6,7 +6,7 @@
 /*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/24 12:43:24 by juan_est145      ###   ########.fr       */
+/*   Updated: 2023/12/24 13:25:16 by juan_est145      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,18 @@ char	*get_next_line(int fd)
 	long		special_char_index;
 	long		i;
 
+	if (fd < 0 || BUFFER_SIZE <= 0)
+	{
+		return (NULL);
+	}
 	i = 0;
 	stash = NULL;
 	ft_check_buffer(&i, buffer, &stash);
 	line = find_next_line(&stash, fd, buffer);
+	if (line == NULL)
+	{
+		return (NULL);
+	}
 	special_char_index = ft_strchr_line(buffer, '\n');
 	if (special_char_index != -1)
 	{
@@ -49,7 +57,12 @@ static char	*find_next_line(t_strings **stash, int fd, char *buffer)
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read != BUFFER_SIZE)
 		{
+			if (bytes_read == 0)
+			{
+				return (NULL);
+			}
 			buffer[bytes_read] = '\0';
+			special_char_index = ft_strchr_line(buffer, '\n');
 			ft_lstadd_back_list(stash, buffer, special_char_index);
 			break ;
 		}
