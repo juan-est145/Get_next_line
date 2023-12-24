@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:45:22 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/20 19:43:52 by juestrel         ###   ########.fr       */
+/*   Updated: 2023/12/24 12:32:43 by juan_est145      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,6 @@ void					ft_lstadd_back_list(t_strings **lst, char *text,
 long					ft_strchr_line(const char *s, int c);
 void					ft_strlcat(char *dst, const char *src,
 							long special_char_index);
+void					ft_clean_buffer(long i, long special_char_index,
+							char *buffer);
 #endif

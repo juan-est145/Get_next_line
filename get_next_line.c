@@ -6,7 +6,7 @@
 /*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/24 12:04:35 by juan_est145      ###   ########.fr       */
+/*   Updated: 2023/12/24 12:43:24 by juan_est145      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static char	*ft_parse_stash(t_strings **stash);
 static void	clean_list(t_strings *stash);
 static char	*find_next_line(t_strings **stash, int fd, char *buffer);
+static void	ft_check_buffer(long *i, char *buffer, t_strings **stash);
 
 char	*get_next_line(int fd)
 {
@@ -26,33 +27,12 @@ char	*get_next_line(int fd)
 
 	i = 0;
 	stash = NULL;
-	while (i < BUFFER_SIZE)
-	{
-		if (buffer[i] != '\0')
-		{
-			special_char_index = ft_strchr_line(buffer, '\n');
-			ft_lstadd_back_list(&stash, &buffer[i], special_char_index);
-			break ;
-		}
-		i++;
-	}
+	ft_check_buffer(&i, buffer, &stash);
 	line = find_next_line(&stash, fd, buffer);
 	special_char_index = ft_strchr_line(buffer, '\n');
 	if (special_char_index != -1)
 	{
-		i = 0;
-		special_char_index++;
-		while (special_char_index < BUFFER_SIZE)
-		{
-			buffer[i] = buffer[special_char_index];
-			i++;
-			special_char_index++;
-		}
-		while (i < BUFFER_SIZE)
-		{
-			buffer[i] = '\0';
-			i++;
-		}
+		ft_clean_buffer(i, special_char_index, buffer);
 	}
 	return (line);
 }
@@ -120,5 +100,18 @@ static void	clean_list(t_strings *stash)
 	}
 }
 
-// TO DO: Clean up the buffer of all previously written values before the
-// special character.
+static void	ft_check_buffer(long *i, char *buffer, t_strings **stash)
+{
+	long	special_char_index;
+
+	while (*i < BUFFER_SIZE)
+	{
+		if (buffer[*i] != '\0')
+		{
+			special_char_index = ft_strchr_line(buffer, '\n');
+			ft_lstadd_back_list(stash, &buffer[*i], special_char_index);
+			break ;
+		}
+		(*i)++;
+	}
+}
