@@ -6,7 +6,7 @@
 /*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/26 15:04:49 by juan_est145      ###   ########.fr       */
+/*   Updated: 2023/12/26 17:01:44 by juan_est145      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	*ft_parse_stash(t_strings **stash);
 static void	clean_list(t_strings *stash);
 static char	*find_next_line(t_strings **stash, int fd, char *buffer);
-static void	ft_check_buffer(long *i, char *buffer, t_strings **stash);
+static void	ft_check_buffer(char *buffer, t_strings **stash);
 
 char	*get_next_line(int fd)
 {
@@ -23,13 +23,11 @@ char	*get_next_line(int fd)
 	static char	buffer[BUFFER_SIZE + 1];
 	char		*line;
 	long		special_char_index;
-	long		i;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	i = 0;
 	stash = NULL;
-	ft_check_buffer(&i, buffer, &stash);
+	ft_check_buffer(buffer, &stash);
 	line = find_next_line(&stash, fd, buffer);
 	if (line == NULL)
 	{
@@ -111,18 +109,20 @@ static void	clean_list(t_strings *stash)
 	}
 }
 
-static void	ft_check_buffer(long *i, char *buffer, t_strings **stash)
+static void	ft_check_buffer(char *buffer, t_strings **stash)
 {
+	long	i;
 	long	special_char_index;
 
-	while (*i < BUFFER_SIZE && buffer[0] != '\0')
+	i = 0;
+	while (i < BUFFER_SIZE && buffer[0] != '\0')
 	{
-		if (buffer[*i] != '\0')
+		if (buffer[i] != '\0')
 		{
 			special_char_index = ft_strchr_line(buffer, '\n');
-			ft_lstadd_back_list(stash, &buffer[*i], special_char_index);
+			ft_lstadd_back_list(stash, &buffer[i], special_char_index);
 			break ;
 		}
-		(*i)++;
+		i++;
 	}
 }
