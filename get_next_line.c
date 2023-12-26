@@ -6,7 +6,7 @@
 /*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/26 17:16:49 by juan_est145      ###   ########.fr       */
+/*   Updated: 2023/12/26 17:55:45 by juan_est145      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*find_next_line(t_strings **stash, int fd, char *buffer)
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read != BUFFER_SIZE)
 		{
-			if (bytes_read == 0 && *stash == NULL)
+			if ((bytes_read == 0 && *stash == NULL) || 0 > bytes_read)
 				return (NULL);
 			buffer[bytes_read] = '\0';
 			special_char_index = ft_strchr_line(buffer, '\n');

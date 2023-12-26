@@ -6,7 +6,7 @@
 /*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:33:32 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/26 13:48:08 by juan_est145      ###   ########.fr       */
+/*   Updated: 2023/12/26 17:53:31 by juan_est145      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@
 //atexit(ft_leaks);
 int	main(void)
 {
-	int		fd;
+	//int		fd;
 	char	*result;
 
 	result = "a";
-	fd = open("lorem_ipsum.txt", O_RDONLY);
+//	fd = open("files/alternate_line_nl_no_nl", O_RDONLY);
 	while (result != NULL)
 	{
-		result = get_next_line(fd);
+		result = get_next_line(100);
 		printf("%s", result);
 		free(result);
 	}
-	close(fd);
+//	close(fd);
 	return (0);
 }
