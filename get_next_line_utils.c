@@ -6,7 +6,7 @@
 /*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:45:35 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/24 12:32:16 by juan_est145      ###   ########.fr       */
+/*   Updated: 2023/12/26 15:05:14 by juan_est145      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,20 @@ void	ft_strlcat(char *dst, const char *src, long special_char_index)
 	dst[dest_length] = '\0';
 }
 
-void	ft_clean_buffer(long i, long special_char_index, char *buffer)
+void	ft_clean_buffer(long special_char_index, char *buffer)
 {
+	unsigned long	i;
+
 	i = 0;
+	if (special_char_index == -1)
+	{
+		while (i < BUFFER_SIZE)
+		{
+			buffer[i] = '\0';
+			i++;
+		}
+		return ;
+	}
 	special_char_index++;
 	while (special_char_index < BUFFER_SIZE)
 	{
