@@ -6,7 +6,7 @@
 /*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/26 17:55:45 by juan_est145      ###   ########.fr       */
+/*   Updated: 2023/12/27 00:44:51 by juan_est145      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static char	*find_next_line(t_strings **stash, int fd, char *buffer)
 {
 	bool	found_char;
 	int		bytes_read;
-	long	special_char_index;
 
 	found_char = false;
 	while (found_char == false)
@@ -59,18 +58,19 @@ static char	*find_next_line(t_strings **stash, int fd, char *buffer)
 		if (bytes_read != BUFFER_SIZE)
 		{
 			if ((bytes_read == 0 && *stash == NULL) || 0 > bytes_read)
+			{
+				ft_clean_buffer(-1, buffer);
 				return (NULL);
+			}
 			buffer[bytes_read] = '\0';
-			special_char_index = ft_strchr_line(buffer, '\n');
-			ft_lstadd_back_list(stash, buffer, special_char_index);
-			if (special_char_index == -1)
-				ft_clean_buffer(special_char_index, buffer);
+			ft_lstadd_back_list(stash, buffer, ft_strchr_line(buffer, '\n'));
+			if (ft_strchr_line(buffer, '\n') == -1)
+				ft_clean_buffer(-1, buffer);
 			break ;
 		}
-		special_char_index = ft_strchr_line(buffer, '\n');
-		if (special_char_index != -1)
+		if (ft_strchr_line(buffer, '\n') != -1)
 			found_char = true;
-		ft_lstadd_back_list(stash, buffer, special_char_index);
+		ft_lstadd_back_list(stash, buffer, ft_strchr_line(buffer, '\n'));
 	}
 	return (ft_parse_stash(stash));
 }
