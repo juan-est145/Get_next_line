@@ -6,7 +6,7 @@
 /*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/24 13:25:16 by juan_est145      ###   ########.fr       */
+/*   Updated: 2023/12/26 13:14:53 by juan_est145      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,20 @@ char	*get_next_line(int fd)
 	long		i;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-	{
 		return (NULL);
-	}
 	i = 0;
 	stash = NULL;
 	ft_check_buffer(&i, buffer, &stash);
 	line = find_next_line(&stash, fd, buffer);
 	if (line == NULL)
 	{
+		if (stash != NULL)
+			clean_list(stash);
 		return (NULL);
 	}
 	special_char_index = ft_strchr_line(buffer, '\n');
 	if (special_char_index != -1)
-	{
 		ft_clean_buffer(i, special_char_index, buffer);
-	}
 	return (line);
 }
 
