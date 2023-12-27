@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/27 01:04:08 by juan_est145      ###   ########.fr       */
+/*   Updated: 2023/12/27 10:49:21 by juan_est145      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*ft_parse_stash(t_strings **stash);
 static void	clean_list(t_strings *stash);
@@ -20,29 +20,29 @@ static void	ft_check_buffer(char *buffer, t_strings **stash);
 char	*get_next_line(int fd)
 {
 	t_strings	*stash;
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffer[1000][BUFFER_SIZE + 1];
 	char		*line;
 	long		special_char_index;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1000)
 		return (NULL);
 	stash = NULL;
-	ft_check_buffer(buffer, &stash);
+	ft_check_buffer(buffer[fd], &stash);
 	if (stash != NULL && stash->text[0] == '\n')
 	{
 		line = stash->text;
 		free(stash);
-		ft_clean_buffer(ft_strchr_line(buffer, '\n'), buffer);
+		ft_clean_buffer(ft_strchr_line(buffer[fd], '\n'), buffer[fd]);
 		return (line);
 	}
-	line = find_next_line(&stash, fd, buffer);
+	line = find_next_line(&stash, fd, buffer[fd]);
 	if (line == NULL && stash != NULL)
 		clean_list(stash);
 	if (line == NULL)
 		return (NULL);
-	special_char_index = ft_strchr_line(buffer, '\n');
+	special_char_index = ft_strchr_line(buffer[fd], '\n');
 	if (special_char_index != -1)
-		ft_clean_buffer(special_char_index, buffer);
+		ft_clean_buffer(special_char_index, buffer[fd]);
 	return (line);
 }
 
@@ -120,7 +120,7 @@ static void	ft_check_buffer(char *buffer, t_strings **stash)
 	long	special_char_index;
 
 	i = 0;
-	while (i < BUFFER_SIZE && buffer[0] != '\0')
+	while (i < BUFFER_SIZE && *buffer != '\0')
 	{
 		if (buffer[i] != '\0')
 		{
