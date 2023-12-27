@@ -5,7 +5,14 @@ get_next_line_utils.c
 
 OBJS = $(SCRS:.c=.o)
 
+SCRS_BONUS = get_next_line_bonus.c\
+get_next_line_utils_bonus.c
+
+OBJS_BONUS = $(SCRS_BONUS:.c=.o)
+
 HEADER = get_next_line.h
+
+BONUS_HEADER = get_next_line_bonus.h
 
 STATIC_LIB = ar rcs
 
@@ -13,6 +20,9 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADER)
 	$(STATIC_LIB) $(NAME) $(OBJS)
+
+bonus: $(OBJS_BONUS) $(BONUS_HEADER)
+	$(STATIC_LIB) $(NAME) $(OBJS_BONUS)
 
 clean:
 	$(RM) $(OBJS) $(OBJS_BONUS)
