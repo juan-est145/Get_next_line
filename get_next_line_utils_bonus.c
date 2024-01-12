@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juan_est145 <juan_est145@student.42.fr>    +#+  +:+       +#+        */
+/*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:45:35 by juestrel          #+#    #+#             */
-/*   Updated: 2023/12/27 10:49:48 by juan_est145      ###   ########.fr       */
+/*   Updated: 2024/01/12 16:45:57 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-static t_strings	*ft_new_node(char *text, long special_char_index);
+static t_strings	*ft_new_node(char *text, long special_char_index)
 
 long	ft_strchr_line(const char *s, int c)
 {
