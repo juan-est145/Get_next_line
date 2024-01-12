@@ -6,7 +6,7 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2024/01/12 16:36:53 by juestrel         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:05:52 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static void	ft_check_buffer(char *buffer, t_strings **stash);
 char	*get_next_line(int fd)
 {
 	t_strings	*stash;
-	static char	buffer[100][BUFFER_SIZE + 1];
+	static char	buffer[50][BUFFER_SIZE + 1];
 	char		*line;
 	long		special_char_index;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 100)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 50)
 		return (NULL);
 	stash = NULL;
 	ft_check_buffer(buffer[fd], &stash);
