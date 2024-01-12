@@ -6,13 +6,13 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:45:35 by juestrel          #+#    #+#             */
-/*   Updated: 2024/01/12 16:46:39 by juestrel         ###   ########.fr       */
+/*   Updated: 2024/01/12 18:00:36 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-static t_strings	*ft_new_node(char *text, long special_char_index);
+t_strings	*ft_new_node(char *text, long special_char_index);
 
 long	ft_strchr_line(const char *s, int c)
 {
@@ -30,7 +30,7 @@ long	ft_strchr_line(const char *s, int c)
 	return (-1);
 }
 
-static t_strings	*ft_new_node(char *text, long special_char_index)
+t_strings	*ft_new_node(char *text, long special_char_index)
 {
 	t_strings		*new_node;
 	unsigned int	i;

@@ -6,16 +6,16 @@
 /*   By: juestrel <juestrel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 12:44:16 by juestrel          #+#    #+#             */
-/*   Updated: 2024/01/12 17:05:52 by juestrel         ###   ########.fr       */
+/*   Updated: 2024/01/12 18:01:06 by juestrel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-static char	*ft_parse_stash(t_strings **stash);
-static void	clean_list(t_strings *stash);
-static char	*find_next_line(t_strings **stash, int fd, char *buffer);
-static void	ft_check_buffer(char *buffer, t_strings **stash);
+char	*ft_parse_stash(t_strings **stash);
+void	clean_list(t_strings *stash);
+char	*find_next_line(t_strings **stash, int fd, char *buffer);
+void	ft_check_buffer(char *buffer, t_strings **stash);
 
 char	*get_next_line(int fd)
 {
@@ -46,7 +46,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-static char	*find_next_line(t_strings **stash, int fd, char *buffer)
+char	*find_next_line(t_strings **stash, int fd, char *buffer)
 {
 	bool	found_char;
 	int		bytes_read;
@@ -75,7 +75,7 @@ static char	*find_next_line(t_strings **stash, int fd, char *buffer)
 	return (ft_parse_stash(stash));
 }
 
-static char	*ft_parse_stash(t_strings **stash)
+char	*ft_parse_stash(t_strings **stash)
 {
 	t_strings		*temp;
 	char			*full_line;
@@ -101,7 +101,7 @@ static char	*ft_parse_stash(t_strings **stash)
 	return (full_line);
 }
 
-static void	clean_list(t_strings *stash)
+void	clean_list(t_strings *stash)
 {
 	t_strings	*temp;
 
@@ -114,7 +114,7 @@ static void	clean_list(t_strings *stash)
 	}
 }
 
-static void	ft_check_buffer(char *buffer, t_strings **stash)
+void	ft_check_buffer(char *buffer, t_strings **stash)
 {
 	long	i;
 	long	special_char_index;
